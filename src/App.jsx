@@ -1,15 +1,15 @@
 import {useState}from 'react'; 
 import {Inputbox} from './components';
-import useCurrency from './hooks/useCurrencyInfo'
+import useCurrencyInfo from './hooks/useCurrencyInfo'
 import backgroundimage from './assets/background.jpg';
 
 function App() { 
   const [amount, setAmount] = useState(0)
-  const [from, setFrom] = useState('inr')
-  const [to, setTo] = useState('usd')
+  const [from, setFrom] = useState('usd')
+  const [to, setTo] = useState('inr')
   const [result, setResult] = useState(0)
 
-  const currencyInfo = useCurrency(from) 
+  const currencyInfo = useCurrencyInfo(from) 
 
   const options = Object.keys(currencyInfo)
 
@@ -22,11 +22,11 @@ function App() {
   }
 
   const final_converted_amount = () => {
-    setResult(amount * currencyInfo[to].value) 
+    setResult(amount * currencyInfo[to]) 
   }
 
   return (
-   <div className='w-full h-screen flex flexx-wrap justify-center items-center bg-cover bg-no-repeat  '
+   <div className='w-full h-screen flex flex-wrap justify-center items-center bg-cover bg-no-repeat  '
    style={{backgroundImage:`url(${backgroundimage})`}}>
       <div className=' flex w-full justify-center'>
           <div className="w-full max-w-md -mx-auto border border-gray-60 rounded-lg p-5 backdrop-blur-sm bg-white/30">
@@ -53,10 +53,10 @@ function App() {
                 <div className='w-full mt-1 mb-4'>
                   <Inputbox 
                   label='To' 
-                  amount = {final_converted_amount}
+                  amount = {result}
                   currencyOptions={options}
                   onCurrencychange={(currency)=> {
-                    setTo(currency)
+                    setTo(amount)
                   }}
                   amountdisable
                   /> 
